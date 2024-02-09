@@ -1,5 +1,6 @@
 package lab4p1_jonatanvallecillo;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Lab4P1_JonatanVallecillo {
@@ -7,6 +8,7 @@ public class Lab4P1_JonatanVallecillo {
     public static void main(String[] args) {
         Scanner zoro = new Scanner(System.in);
         Scanner zoro1 = new Scanner(System.in);
+        Random rand = new Random(0);
         
         int menu = 0;
         while (menu == 0){
@@ -88,14 +90,18 @@ public class Lab4P1_JonatanVallecillo {
                     
                 case 2:
                     int val = 1;
+                    int iteraciones = 0;
                     while(val == 1){
                         System.out.print("\nIngrese la cantidad de iteraciones (entre 1 y 6): ");
-                        int iteraciones = zoro.nextInt();
+                        iteraciones = zoro.nextInt();
                         
                         if(iteraciones < 1 || iteraciones > 6){
                             System.out.println("No ingreso un valor valido.");
                             System.out.println("Intente de nuevo");
+                        }else{
+                            val = 0;
                         }
+                    }
                         
                         int numero = 0;
                         
@@ -109,9 +115,9 @@ public class Lab4P1_JonatanVallecillo {
                                     numero = i - j + 1;
                                 }else if(i == j + 1){
                                     numero = j + 1;
-                                }else if(i == j +2){
+                                }//else if( ){
                                     
-                                }
+                                //}
                                 else{
                                     numero = 0;
                                 }
@@ -119,11 +125,59 @@ public class Lab4P1_JonatanVallecillo {
                             }
                             System.out.println();
                         }
-                    }
+                        System.out.println();
                     break;
                     
                 case 3:
+                    System.out.println();
+                    int numascii = 0;
+                    char chara = ' ';
+                    String sopdletras = "";
+                    String sopdletrasL = "";
+                    for(int i = 0; i < 4; i++){
+                        for(int j = 0; j < 4; j++){
+                            val = 1;
+                            while(val == 1){
+                                numascii = rand.nextInt(122-65)+65;
+                                
+                                if(numascii < 91 || numascii > 96){
+                                    val = 0;
+                                }
+                            }
+                            chara = (char) numascii;
+                            sopdletras += chara+" ";
+                        }
+                        sopdletras += "\n";
+                    }
                     
+                    System.out.println(sopdletras);
+                    sopdletrasL = sopdletras.toLowerCase();
+                    int intentos = 5;
+                    
+                    while(intentos <= 5 && intentos > 0){
+                        System.out.print("Busquedas restantes: "+intentos+", ingrese las letras que desea busar: ");
+                        String intento = zoro1.nextLine();
+                        intento = intento.toLowerCase();
+                        int cont = 0;
+                        int fila = 0;
+                        
+                        for(int i = 0; i < 4; i++){
+                            cont = 0;
+                            for(int j = 0; j < 4; j++){
+                                if(intento.charAt(cont) == sopdletras.charAt(j) && cont < intento.length()){
+                                    cont++;
+                                    System.out.println(cont);
+                                    fila = i;
+                                }
+                                j += 1;
+                            }
+                        }
+                        if(cont == intento.length()-1){
+                            System.out.println("Las letras se encontradan en la fila #"+fila);
+                        }
+                        intentos --;
+                    }
+                            
                     break;
                     
                 case 4:
