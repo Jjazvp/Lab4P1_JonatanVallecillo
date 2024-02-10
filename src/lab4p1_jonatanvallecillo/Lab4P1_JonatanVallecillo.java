@@ -104,6 +104,8 @@ public class Lab4P1_JonatanVallecillo {
                     }
                         
                         int numero = 0;
+                        int numero2 = 0;
+                        int numero3 = 1;
                         
                         for(int i = 0; i < iteraciones; i++){
                             for(int j = 0; j < iteraciones; j++){
@@ -113,12 +115,14 @@ public class Lab4P1_JonatanVallecillo {
                                     numero = 1;
                                 }else if(j == 1){
                                     numero = i - j + 1;
+                                }else if(i - j == 2){
+                                    numero2 += j;
+                                    numero = numero2 + i;
+                                }else if(i - j == 3){
+                                    numero = i * j;
                                 }else if(i == j + 1){
                                     numero = j + 1;
-                                }//else if( ){
-                                    
-                                //}
-                                else{
+                                }else if(j > i){
                                     numero = 0;
                                 }
                                 System.out.print(numero);
@@ -133,7 +137,6 @@ public class Lab4P1_JonatanVallecillo {
                     int numascii = 0;
                     char chara = ' ';
                     String sopdletras = "";
-                    String sopdletrasL = "";
                     for(int i = 0; i < 4; i++){
                         for(int j = 0; j < 4; j++){
                             val = 1;
@@ -151,7 +154,7 @@ public class Lab4P1_JonatanVallecillo {
                     }
                     
                     System.out.println(sopdletras);
-                    sopdletrasL = sopdletras.toLowerCase();
+                    sopdletras = sopdletras.toLowerCase();
                     int intentos = 5;
                     
                     while(intentos <= 5 && intentos > 0){
@@ -159,25 +162,52 @@ public class Lab4P1_JonatanVallecillo {
                         String intento = zoro1.nextLine();
                         intento = intento.toLowerCase();
                         int cont = 0;
+                        int cont2 = 0;
+                        int cont3 = 0;
                         int fila = 0;
+                        int columna = 0;
                         
-                        for(int i = 0; i < 4; i++){
-                            cont = 0;
-                            for(int j = 0; j < 4; j++){
-                                if(intento.charAt(cont) == sopdletras.charAt(j) && cont < intento.length()){
-                                    cont++;
-                                    System.out.println(cont);
-                                    fila = i;
-                                }
-                                j += 1;
+                        for(int i = 0; i < 36; i += 2){// 36 porque contando los espacios, la cadena llega a tener esa cantidad
+                            if(sopdletras.charAt(i) == ' '){
+                                i --;
                             }
-                        }
-                        if(cont == intento.length()-1){
-                            System.out.println("Las letras se encontradan en la fila #"+fila);
+                            if(intento.charAt(cont) == sopdletras.charAt(i) && cont < intento.length()){
+                                cont ++;
+                                if(i < 9){
+                                    fila = 0;
+                                }else if(i < 18){
+                                    fila = 1;
+                                }else if(i < 27){
+                                    fila = 2;
+                                }else{
+                                    fila = 3;
+                                }
+                            }else{
+                                cont = 0;
+                            }
+                            if(cont == intento.length()){
+                                System.out.println("Las letras se encontraron en la fila #"+(fila+1));
+                                cont = 0;
+                            }
+                            
+                            if(intento.charAt(cont2) == sopdletras.charAt(cont3) && cont2 < intento.length()){
+                                cont2 ++;
+                                cont3 += 10;
+                            }else{
+                                cont3 = 0;
+                                cont2 = 0;
+                            }
+                            
+                            if(cont == intento.length()){
+                                System.out.println("Las letras se encontraron en la columna #"+(fila+1));
+                                cont = 0;
+                            }
+                            
+                            cont3 += 2;
                         }
                         intentos --;
                     }
-                            
+                    System.out.println();   
                     break;
                     
                 case 4:
@@ -185,6 +215,5 @@ public class Lab4P1_JonatanVallecillo {
                     break;
             }
         }
-        
     }
 }
